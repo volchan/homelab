@@ -1,0 +1,25 @@
+version: '3'
+
+name: 'nas-tools'
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - VERSION=docker
+    volumes:
+      - ~/plex/config:/config
+    restart: unless-stopped
+  homarr: # Dashboard
+    image: ghcr.io/ajnart/homarr:latest
+    volumes:
+      - ~/homarr/config:/config
+      - ~/homarr/data:/data
+    ports:
+      - 7575:7575
+    restart: unless-stopped
+    
