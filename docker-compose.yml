@@ -2,11 +2,7 @@ version: '3'
 
 name: 'nas-tools'
 services:
-  shared_volumes: &shared_volumes
-    volumes:
-      - /Volumes:/mnt/shares
   plex:
-    <<: *shared_volumes
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
     network_mode: host
@@ -19,8 +15,21 @@ services:
       - ~/plex/config:/config
       - /Volumes:/mnt/shares
     restart: unless-stopped
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - tautilli_config:/config
+    ports:
+      - 8181:8181
+    restart: unless-stopped
+    depends_on:
+      - plex
   deluge:
-    <<: *shared_volumes
     image: lscr.io/linuxserver/deluge:latest
     container_name: deluge
     environment:
@@ -38,3 +47,4 @@ services:
     restart: unless-stopped
 volumes:
   deluge_config:
+  tautilli_config:
