@@ -21,7 +21,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=Europe/Paris
     volumes:
       - tautilli_config:/config
     ports:
@@ -35,7 +35,7 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=Europe/Paris
       - DELUGE_LOGLEVEL=error #optional
     volumes:
       - deluge_config:/config
