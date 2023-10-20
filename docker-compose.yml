@@ -40,6 +40,7 @@ services:
     volumes:
       - deluge_config:/config
       - ~/Downloads:/downloads
+      - /Volumes:/mnt/shares
     ports:
       - 8112:8112
       - 6881:6881
