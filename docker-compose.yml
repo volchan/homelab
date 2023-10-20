@@ -17,6 +17,7 @@ services:
       - VERSION=docker
     volumes:
       - ~/plex/config:/config
+      - /Volumes:/mnt/shares
     restart: unless-stopped
   homarr: # Dashboard
     image: ghcr.io/ajnart/homarr:latest
