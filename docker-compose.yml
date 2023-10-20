@@ -2,9 +2,6 @@ version: '3'
 
 name: 'nas-tools'
 services:
-  shared_volumes: &shared_volumes
-    volumes:
-      - /Volumes:/mnt/shares
   plex:
     <<: *shared_volumes
     image: lscr.io/linuxserver/plex:latest
@@ -17,6 +14,7 @@ services:
       - VERSION=docker
     volumes:
       - ~/plex/config:/config
+      - /Volumes:/mnt/shares
     restart: unless-stopped
   homarr: # Dashboard
     image: ghcr.io/ajnart/homarr:latest
@@ -38,10 +36,9 @@ services:
     volumes:
       - deluge_config:/config
       - ~/Downloads:/downloads
+      - /Volumes:/mnt/shares
     ports:
       - 8112:8112
       - 6881:6881
       - 6881:6881/udp
     restart: unless-stopped
-volumes:
-  deluge_config:
