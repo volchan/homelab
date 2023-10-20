@@ -2,7 +2,11 @@ version: '3'
 
 name: 'nas-tools'
 services:
+  shared_volumes: &shared_volumes
+    volumes:
+      - /Volumes:/mnt/shares
   plex:
+    <<: *shared_volumes
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
     network_mode: host
@@ -23,6 +27,7 @@ services:
       - 7575:7575
     restart: unless-stopped
   deluge:
+    <<: *shared_volumes
     image: lscr.io/linuxserver/deluge:latest
     container_name: deluge
     environment:
@@ -33,7 +38,6 @@ services:
     volumes:
       - deluge_config:/config
       - ~/Downloads:/downloads
-      - /Volumes:/mnt/shares
     ports:
       - 8112:8112
       - 6881:6881
