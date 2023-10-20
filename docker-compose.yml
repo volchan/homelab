@@ -59,6 +59,21 @@ services:
       - 3000:3000
     restart: unless-stopped
 
+  reverse-proxy:
+    image: traefik:v2.0
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./traefik.toml:/etc/traefik/traefik.toml
+    labels:
+      - "traefik.http.routers.api.rule=Host(`traefik.home.volchan.net`)"
+      - "traefik.http.routers.api.service=api@internal"
+      - "traefik.http.routers.api.entrypoints=http"
+      - "traefik.http.routers.api.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=${TRAEFIK_AUTH}"
+    restart: unless-stopped
+
 volumes:
   deluge_config:
   grafana-data:
