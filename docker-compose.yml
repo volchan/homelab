@@ -45,6 +45,7 @@ services:
       - 8112:8112
       - 6881:6881
       - 6881:6881/udp
+      - 58846:58846
     restart: unless-stopped
   grafana:
     image: grafana/grafana
