@@ -71,4 +71,5 @@ volumes:
   deluge_config:
   grafana-data:
   grafana-conf:
+  portainer-data:
   tautilli_config:
