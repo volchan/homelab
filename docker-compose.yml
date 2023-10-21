@@ -29,24 +29,6 @@ services:
     restart: unless-stopped
     depends_on:
       - plex
-  deluge:
-    image: lscr.io/linuxserver/deluge:latest
-    container_name: deluge
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Paris
-      - DELUGE_LOGLEVEL=error #optional
-    volumes:
-      - deluge-config:/config
-      - ~/Downloads:/downloads
-      - /Volumes:/mnt/shares
-    ports:
-      - 8112:8112
-      - 6881:6881
-      - 6881:6881/udp
-      - 58846:58846
-    restart: unless-stopped
   transmission:
     image: lscr.io/linuxserver/transmission:latest
     container_name: transmission
@@ -93,7 +75,6 @@ services:
     restart: unless-stopped
 
 volumes:
-  deluge-config:
   grafana-data:
   grafana-conf:
   portainer-data:
