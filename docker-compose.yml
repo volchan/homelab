@@ -47,6 +47,29 @@ services:
       - 6881:6881/udp
       - 58846:58846
     restart: unless-stopped
+  transmission:
+    image: lscr.io/linuxserver/transmission:latest
+    container_name: transmission
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - TRANSMISSION_WEB_HOME=${TRANSMISSION_TRANSMISSION_WEB_HOME}
+      - USER=${TRANSMISSION_USER}
+      - PASS=${TRANSMISSION_PASS}
+      - WHITELIST=${TRANSMISSION_WHITELIST}
+      - PEERPORT=${TRANSMISSION_PEERPORT}
+      - HOST_WHITELIST=${TRANSMISSION_HOST_WHITELIST}
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    volumes:
+      - transmission-config:/config
+      - ~/Downloads:/downloads
+      - ~/Public/watch:/watch
+      - /Volumes:/mnt/shares
+    restart: unless-stopped
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -75,3 +98,4 @@ volumes:
   grafana-conf:
   portainer-data:
   tautilli-config:
+  transmission-config:
