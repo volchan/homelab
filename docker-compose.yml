@@ -1,6 +1,5 @@
 version: '3'
 
-name: 'nas-tools'
 services:
   plex:
     image: lscr.io/linuxserver/plex:latest
@@ -63,19 +62,9 @@ services:
     ports:
       - 3000:3000
     restart: unless-stopped
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    ports:
-      - 9443:9443
-    volumes:
-      - portainer-data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
 
 volumes:
   grafana-data:
   grafana-conf:
-  portainer-data:
   tautilli-config:
   transmission-config:
