@@ -4,7 +4,6 @@ services:
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
-    network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
@@ -13,6 +12,8 @@ services:
     volumes:
       - ~/plex/config:/config
       - /Volumes:/mnt/shares
+    ports:
+      - 32400:32400
     restart: unless-stopped
     healthcheck:
       test: curl --connect-timeout 15 --silent --show-error --fail http://localhost:32400/identity
@@ -80,9 +81,19 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    volumes:
+      - uptime-kuma:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 3001:3001
+    restart: always
 
 volumes:
   grafana-data:
   grafana-conf:
   tautilli-config:
   transmission-config:
+  uptime-kuma:
