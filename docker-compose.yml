@@ -23,7 +23,7 @@ services:
       - PGID=1000
       - TZ=Europe/Paris
     volumes:
-      - tautilli_config:/config
+      - tautilli-config:/config
     ports:
       - 8181:8181
     restart: unless-stopped
@@ -38,7 +38,7 @@ services:
       - TZ=Europe/Paris
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - deluge_config:/config
+      - deluge-config:/config
       - ~/Downloads:/downloads
       - /Volumes:/mnt/shares
     ports:
@@ -60,6 +60,7 @@ services:
     restart: unless-stopped
   portainer:
     image: portainer/portainer-ce:latest
+    container_name: portainer
     ports:
       - 9443:9443
     volumes:
@@ -68,8 +69,8 @@ services:
     restart: unless-stopped
 
 volumes:
-  deluge_config:
+  deluge-config:
   grafana-data:
   grafana-conf:
   portainer-data:
-  tautilli_config:
+  tautilli-config:
