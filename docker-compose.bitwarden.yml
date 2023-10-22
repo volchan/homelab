@@ -1,0 +1,19 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: always
+    ports:
+      - ${VAULTWARDEN_PORT}:80
+    volumes:
+      - vaultwarden-data:/data
+    environment:
+      DOMAIN: ${VAULTWARDEN_DOMAIN}  # Your domain; vaultwarden needs to know it's https to work properly with attachments
+      WEBSOCKET_ENABLED: ${VAULTWARDEN_WEBSOCKET_ENABLED} # Required to use websockets
+      SIGNUPS_ALLOWED: ${VAULTWARDEN_SIGNUPS_ALLOWED}   # set to false to disable signups
+  
+volumes:
+  vaultwarden-data:
