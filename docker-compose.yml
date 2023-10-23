@@ -1,46 +1,6 @@
 version: '3.8'
 
 services:
-  plex:
-    image: lscr.io/linuxserver/plex:latest
-    container_name: plex
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Paris
-      - VERSION=docker
-    volumes:
-      - ~/plex/config:/config
-      - /Volumes:/mnt/shares
-    ports:
-      - 32400:32400
-    restart: unless-stopped
-    healthcheck:
-      test: curl --connect-timeout 15 --silent --show-error --fail http://localhost:32400/identity
-      interval: 1m30s
-      timeout: 30s
-      retries: 5
-      start_period: 30s
-  tautulli:
-    image: lscr.io/linuxserver/tautulli:latest
-    container_name: tautulli
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Paris
-    volumes:
-      - tautilli-config:/config
-    ports:
-      - 8181:8181
-    restart: unless-stopped
-    depends_on:
-      - plex
-    healthcheck:
-      test: curl --connect-timeout 15 --silent --show-error --fail http://localhost:8181/status
-      interval: 1m30s
-      timeout: 30s
-      retries: 5
-      start_period: 30s
   transmission:
     image: lscr.io/linuxserver/transmission:latest
     container_name: transmission
@@ -108,6 +68,5 @@ volumes:
   grafana-data:
   grafana-conf:
   heimdall-config:
-  tautilli-config:
   transmission-config:
   uptime-kuma:
