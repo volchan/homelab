@@ -40,8 +40,13 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Paris
+      - APP_NAME=${HEIMDALL_APP_NAME}
     volumes:
       - heimdall-config:/config
+      - ${HEIMDALL_FAVICON_ICO}:/var/www/localhost/heimdall/public/favicon.ico
+      - ${HEIMDALL_FAVICON_SMALL}:/var/www/localhost/heimdall/public/favicon-16x16.png
+      - ${HEIMDALL_FAVICON_MEDIUM}:/var/www/localhost/heimdall/public/favicon-32x32.png
+      - ${HEIMDALL_FAVICON_LARGE}:/var/www/localhost/heimdall/public/favicon-96x96.png
     ports:
       - ${HEIMDALL_HTTP_PORT}:80
       - ${HEIMDALL_HTTPS_PORT}:443
