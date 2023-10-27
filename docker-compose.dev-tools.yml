@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-bookworm
+    container_name: dev-tools-postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - postgres_socket:/var/run/postgresql
+      - history:/user/local/hist
+    environment:
+      - PSQL_HISTFILE=/user/local/hist/.psql_history
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    ports:
+      - ${DEV_POSTGRESS_PORT}:5432
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1
+      interval: 5s
+
+  redis:
+    image: redis:alpine
+    container_name: dev-tools-redis
+    ports:
+      - ${DEV_REDIS_PORT}:6379
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: redis-cli ping
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  postgres:
+  postgres_socket:
+  history:
+  redis:
